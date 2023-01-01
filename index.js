@@ -20,11 +20,15 @@ app.post("/test", (req,res) => {
 
 app.post("/api/users", async(req, res) => {
     console.log(req.body);
+    try{
     const { fullName, email, password, ...rest } = req.body;
         const user = await User.create({ fullName, email, password, ...rest });
         console.log(user);
         res.send({ status: "User Created!", user });
-    
+    } catch(err){
+      console.log(err);
+      res.send({status: "Error Creating User!!"});
+    }
 });
 
 console.log("Hello");
